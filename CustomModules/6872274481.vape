@@ -3262,79 +3262,79 @@ flybuyballoon = fly.CreateToggle({
 	["Default"] = true
 })
 
-local fly2speed = {["Value"] = 1}
-local fly2verticalspeed = {["Value"] = 1}
-local fly2upanddown = {["Enabled"] = false}
-local fly2posy = 0
-local fly2up = false
-local fly2down = false
-local fly2press
-local fly2endpress
-local fly2 = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "Fly2", 
+local flyspeed = {["Value"] = 1}
+local flyverticalspeed = {["Value"] = 1}
+local flyupanddown = {["Enabled"] = false}
+local flyposy = 0
+local flyup = false
+local flydown = false
+local flypress
+local flyendpress
+local fly = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+	["Name"] = "fly2", 
 	["Function"] = function(callback)
 		if callback then
 			if isAlive() then
-				fly2posy = lplr.Character.HumanoidRootPart.CFrame.p.Y
+				flyposy = lplr.Character.HumanoidRootPart.CFrame.p.Y
 			end
-			fly2press = game:GetService("UserInputService").InputBegan:connect(function(input1)
-				if fly2upanddown["Enabled"] and game:GetService("UserInputService"):GetFocusedTextBox() == nil then
+			flypress = game:GetService("UserInputService").InputBegan:connect(function(input1)
+				if flyupanddown["Enabled"] and game:GetService("UserInputService"):GetFocusedTextBox() == nil then
 					if input1.KeyCode == Enum.KeyCode.Space then
-						fly2up = true
+						flyup = true
 					end
 					if input1.KeyCode == Enum.KeyCode.LeftShift then
-						fly2down = true
+						flydown = true
 					end
 				end
 			end)
-			fly2endpress = game:GetService("UserInputService").InputEnded:connect(function(input1)
+			flyendpress = game:GetService("UserInputService").InputEnded:connect(function(input1)
 				if input1.KeyCode == Enum.KeyCode.Space then
-					fly2up = false
+					flyup = false
 				end
 				if input1.KeyCode == Enum.KeyCode.LeftShift then
-					fly2down = false
+					flydown = false
 				end
 			end)
-			BindToRenderStep("Fly2, 1, function(delta) 
+			BindToRenderStep("fly, 1, function(delta) 
 				if isAlive() then
-						if (bodyvelofly2 ~= nil) then
-							bodyvelofly2:Remove()
+						if (bodyvelofly ~= nil) then
+							bodyvelofly:Remove()
 						end
-						if fly2up then
-							fly2posy = fly2posy + (1 * (math.clamp(fly2verticalspeed["Value"] - 16, 1, 150) * delta))
+						if flyup then
+							flyposy = flyposy + (1 * (math.clamp(flyverticalspeed["Value"] - 16, 1, 150) * delta))
 						end
-						if fly2down then
-							fly2posy = fly2posy - (1 * (math.clamp(fly2verticalspeed["Value"] - 16, 1, 150) * delta))
+						if flydown then
+							flyposy = flyposy - (1 * (math.clamp(flyverticalspeed["Value"] - 16, 1, 150) * delta))
 						end
-						local fly2pos = (lplr.Character.Humanoid.MoveDirection * (math.clamp(fly2speed["Value"] - 16, 1, 150) * delta))
-						lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame + Vector3.new(fly2pos.X, (fly2posy - lplr.Character.HumanoidRootPart.CFrame.p.Y), fly2pos.Z)
+						local flypos = (lplr.Character.Humanoid.MoveDirection * (math.clamp(flyspeed["Value"] - 16, 1, 150) * delta))
+						lplr.Character.HumanoidRootPart.CFrame = lplr.Character.HumanoidRootPart.CFrame + Vector3.new(flypos.X, (flyposy - lplr.Character.HumanoidRootPart.CFrame.p.Y), flypos.Z)
 						lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
 				end
 			end)
 		else
-			fly2up = false
-			fly2down = false
-			fly2press:Disconnect()
-			fly2endpress:Disconnect()
-			UnbindFromRenderStep("Fly2")
+			flyup = false
+			flydown = false
+			flypress:Disconnect()
+			flyendpress:Disconnect()
+			UnbindFromRenderStep("fly")
 		end
 	end,
 })
-fly2speed = fly2.CreateSlider({
+flyspeed = fly.CreateSlider({
 	["Name"] = "Speed",
 	["Min"] = 1,
 	["Max"] = 40, 
 	["Function"] = function(val) end,
 	["Default"] = 40
 })
-fly2verticalspeed = fly2.CreateSlider({
+flyverticalspeed = fly.CreateSlider({
 	["Name"] = "Vertical Speed",
 	["Min"] = 1,
 	["Max"] = 40, 
 	["Function"] = function(val) end,
 	["Default"] = 40
 })
-fly2upanddown = fly2.CreateToggle({
+flyupanddown = fly.CreateToggle({
 	["Name"] = "Y Level", 
 	["Function"] = function() end,
 	["Default"] = true
