@@ -3262,7 +3262,7 @@ flybuyballoon = fly.CreateToggle({
 	["Default"] = true
 })
 
-local flyspeed = {["Value"] = 1}
+--[[local flyspeed = {["Value"] = 1}
 local flyverticalspeed = {["Value"] = 1}
 local flyupanddown = {["Enabled"] = false}
 local flyposy = 0
@@ -3338,7 +3338,7 @@ flyupanddown = fly.CreateToggle({
 	["Name"] = "Y Level", 
 	["Function"] = function() end,
 	["Default"] = true
-})
+})]]
 
 
 local scaffoldtext = Instance.new("TextLabel")
